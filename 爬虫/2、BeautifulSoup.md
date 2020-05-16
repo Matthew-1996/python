@@ -75,8 +75,8 @@ all_href = soup.find_all('a')
 all_href = [l['href'] for l in all_href]
 
 #[http://example.com/elsie,
-  http://example.com/lacie,
-  http://example.com/tillie]
+# http://example.com/lacie,
+# http://example.com/tillie]
 ```
 ## beautfulsoup：CSS
 ## beautfulsoup：正则表达式
