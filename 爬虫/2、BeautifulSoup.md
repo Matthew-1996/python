@@ -79,5 +79,45 @@ all_href = [l['href'] for l in all_href]
 # http://example.com/tillie]
 ```
 ## beautfulsoup：CSS
+### css简介
+css是html的好搭档，没有css的html就是一份文档形式的内容，用css就可以装饰html。  
+css的详细规则：https://www.w3schools.com/css/  
+在用beautifulsoup的时候，由于css和html是相关的，我们也可以用css的class来选择内容。  
+### css的class
+在用css装饰html的时候，他会给每一个网页部件取名。而同一种类型的部件，名字*都可以*一样。我们就可以利用这个特性来寻找。  
+举一个通俗一些的例子，在一个网页里面，我们可能会把所有段落的小标题/或是所有日期/等等，用一样的字体、颜色、背景颜色等等去装饰。这就成为了这些内容的一个共性。那么在css里面，他们的class可能取名就是一样的（为同一种样式取同一个名字）。所以beautifulsoup也可以利用css的class来检索到这些内容。  
+css代码*可能*会放在html的<head>中，用<style>样式信息</style>表示。  
+  
+```html
+<head>
+	  ...
+	  <style>
+	  .jan {
+		  background-color: yellow;
+	  }
+	  ...
+	  .month {
+		  color: red;
+	  }
+	  </style>
+</head>
+
+<body>
+...
+<ul>
+	  <li class="month">一月</li>
+	  <ul class="jan">
+		  <li>一月一号</li>
+		  <li>一月二号</li>
+		  <li>一月三号</li>
+	  </ul>
+	  ...
+</ul>
+</body>
+```
+
+比如上面一段html代码，它的<head>里面就有class的格式信息（jan格式是黄色背景，month格式是红色字体）
+下面的内容就可以看到  
+  
 ## beautfulsoup：正则表达式
 ## 小练习
