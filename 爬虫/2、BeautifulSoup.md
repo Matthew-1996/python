@@ -148,11 +148,14 @@ import re
 
 html = urlopen('wangzhi').read().recode('utf-8')
 soup = BeautifulSoup(html,'lxml')
-img = soup.find_all('img', {'src': re.compile('.*?\.jpg')})
+img = soup.find_all('img', {'src': re.compile(r'.*?\.jpg')})
 #这里要注意的是，虽然正则表达式是r‘.*?\.jpg’，但是这是用在re.search等一系列re下面的，不能直接用在beautifulsoup里面。所以我们用了re.compile把这个正则表达式合成
 
 print(l['src'] for l in img)
 ```
 又或者，我们要找的链接可能有一些共有的特征，例如是 https://morvan.* 
+```python
+link = soup.find_all('a', {'href': re.compile(r'https://morvan.*')})
+print(l['href'] for l in link)
 
 ## 小练习
