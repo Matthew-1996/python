@@ -136,5 +136,21 @@ for l in jan_li:
 #一月三号
 #"""
 ```
-## beautfulsoup：正则表达式
+## beautifulsoup：正则表达式
+beautifulsoup加正则表达式就可以做到更多  
+比如找图片的时候，假如我们要的是jpg，正则表达式应该是这样 r‘.\*?\\.jpg’  
+然后图片一般都位于这样的tag中 <img src="https://morvanzhou.github.io/static/img/course_cover/tf.jpg">  
+我们可以这样来实现  
+```python
+from bs4 import BeautifulSoup
+from urllib import urlopen
+import re
+
+html = urlopen('wangzhi').read().recode('utf-8')
+soup = BeautifulSoup(html,'lxml')
+img = soup.find_all('img', {'src': r'.*?\.jpg'})
+print(l['src'] for l in img)
+```
+又或者，我们要找的链接可能有一些共有的特征，例如是 https://morvan.* 
+
 ## 小练习
