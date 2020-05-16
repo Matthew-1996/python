@@ -158,5 +158,5 @@ print(l['src'] for l in img)
 ```python
 link = soup.find_all('a', {'href': re.compile(r'https://morvan.*')})
 print(l['href'] for l in link)
-
+```
 ## 小练习
