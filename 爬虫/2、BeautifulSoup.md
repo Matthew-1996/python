@@ -117,7 +117,24 @@ css代码*可能*会放在html的<head>中，用<style>样式信息</style>表�
 ```
 
 比如上面一段html代码，它的<head>里面就有class的格式信息（jan格式是黄色背景，month格式是红色字体）
-下面的内容就可以看到  
-  
+下面的内容就可以看到一月这种月份用了month格式，一月几号这些所有的都用了jan格式。那我们就可以用class='jan'去找到下面所有的一月几号了。 
+下面示例以下找到所有一月几号（jan）
+	
+```python
+#就跳过前面打开url，导入beautifulsoup等操作了
+jan = soup.find('ul', {'class': 'jan'})
+#上面的html没有写全，但是我们可以看到上面的ul（列表）是很多的。有月列表，每个月下面还有列表。那假设我们只需要一月的那个列表，它刚好也有一个单独的class。那在soup.find('ul')的基础上，我们可以在后面加一个字典的形式{'class': 'jan'}，表示class也是要jan的。
+#另外可能会奇怪，为什么不直接find('ul class="jan"')呢？那是因为现实中class（或者我们要以别的为依据）未必跟在ul后面。
+#刚才会返回的结果是所有<ul class="jan">里面的内容，那事实上我们只要其中<li>的内容，所以继续使用
+jan_li = jan.find_all('li')
+for l in jan_li:
+    print(l.get_text())
+    
+#"""
+#一月一号
+#一月二号
+#一月三号
+#"""
+```
 ## beautfulsoup：正则表达式
 ## 小练习
