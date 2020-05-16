@@ -139,7 +139,7 @@ for l in jan_li:
 ## beautifulsoup：正则表达式
 beautifulsoup加正则表达式就可以做到更多  
 比如找图片的时候，假如我们要的是jpg，正则表达式应该是这样 r‘.\*?\\.jpg’  
-然后图片一般都位于这样的tag中 <img src="https://morvanzhou.github.io/static/img/course_cover/tf.jpg">  
+然后图片一般都位于这样的tag中 \<img src="https://morvanzhou.github.io/static/img/course_cover/tf.jpg"> 
 我们可以这样来实现  
 ```python
 from bs4 import BeautifulSoup
@@ -148,7 +148,9 @@ import re
 
 html = urlopen('wangzhi').read().recode('utf-8')
 soup = BeautifulSoup(html,'lxml')
-img = soup.find_all('img', {'src': r'.*?\.jpg'})
+img = soup.find_all('img', {'src': re.compile('.*?\.jpg')})
+#这里要注意的是，虽然正则表达式是r‘.*?\.jpg’，但是这是用在re.search等一系列re下面的，不能直接用在beautifulsoup里面。所以我们用了re.compile把这个正则表达式合成
+
 print(l['src'] for l in img)
 ```
 又或者，我们要找的链接可能有一些共有的特征，例如是 https://morvan.* 
