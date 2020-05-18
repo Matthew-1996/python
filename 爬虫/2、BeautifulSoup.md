@@ -219,3 +219,9 @@ for i in range(1):    #设置了页数，可调整参数
 这里用http代替https也是为了避免第一页就出现这样的问题，但只能用于第一页。
 https://github.com/Matthew-1996/python/blob/master/%E7%88%AC%E8%99%AB/%E7%88%AC%E5%8F%96%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2.ipynb  
 **可以考虑了解百度搜索网址的参数含义**，自己生成关于检索关键词的参数。来简化网页链接，甚至可能实现跳过身份验证。
+```python
+parameters = {'wd': '凯西找乐指南', 'pn': 10}
+r = requests.get('http://www.baidu.com/s', params=parameters)
+print(r.url)
+```
+结合requests之后，可以进一步做到设置关键字和页面的爬虫，但是仍然有安全验证。
