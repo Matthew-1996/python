@@ -160,3 +160,35 @@ link = soup.find_all('a', {'href': re.compile(r'https://morvan.*')})
 print(l['href'] for l in link)
 ```
 ## 小练习
+结合上面的知识，我们用beautifulsoup做一个小小的练习  
+### 先尝试一下爬取百度百科。  
+由于百度百科每个词条里面有不定数量的新词条，我们这次采用随机取一个的办法简化过程，先感受以下整个流程。  
+```python
+from bs4 import BeautifulSoup
+from urllib.request import urlopen 
+import re 
+import random   #用来生成随机数
+
+base_url = 'https://baike.baidu.com'
+href = ['/item/%E7%8C%AB/22261']    #我这次选的例子是猫
+#这次我考虑用列表的方式，把每次随机选到的href放入同个列表，再[-1]选取它，实现循环。
+for i in range(10):    #循环10次
+    url = base_url + href[-1]
+    html = urlopen(url).read().decode('utf-8')
+    soup = BeautifulSoup(html, 'lxml')
+    print(i, soup.find('h1').get_text(), url)
+    
+    #每一个词条的特征都是在<a>中，且blank（点击跳转）
+    new_a = soup.find_all('a', {'target': '_blank', 'href': re.compile('/item/.+')})
+    #这样就找到了词条下面所有的词条的<a>
+    
+    #为了防止遇到某一个词条下面没有新词条的情况，我们还要做一个条件判断。若没有新词条，停止。
+    if len(new_a) != 0:
+        href.append(random.sample(new_a, 1)[0]['href'])
+        #单个分组，选取第一组的<a>的href
+    else:
+        print('没有新词条')
+        break
+```
+运行过程：
+
