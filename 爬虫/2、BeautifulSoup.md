@@ -190,5 +190,5 @@ for i in range(10):    #循环10次
         print('没有新词条')
         break
 ```
-运行过程：
+
 
