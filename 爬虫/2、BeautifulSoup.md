@@ -203,7 +203,6 @@ import re
 #这是百度搜索 凯西找乐指南第一页的url，观察可以发现pn=0，百度搜索每页是个链接，只要改成pn=10，就可以跳转到下一页。利用这个特征，先修改以下url方便换页处理。
 url_first = 'http://www.baidu.com/s?wd=%E5%87%AF%E8%A5%BF%E6%89%BE%E4%B9%90%E6%8C%87%E5%8D%97&'
 url_last = '&oq=%E5%87%AF%E8%A5%BF%E6%89%BE%E4%B9%90%E6%8C%87%E5%8D%97&ie=utf-8&usm=1&fenlei=256&rsv_idx=1&rsv_pq=99d79e870005a5fd&rsv_t=02db0vyQ2uPxvtb%2ByikWm9E07pqieLhuqW7jxqZkWakM%2FFUEfz%2FSPts4p3U'
-url_list = []
 n = 1
 for i in range(1):    #设置了页数，可调整参数
     url_page = 'pn={}'.format(i * 10)
