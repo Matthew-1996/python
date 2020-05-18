@@ -217,4 +217,5 @@ for i in range(1):    #设置了页数，可调整参数
 ```
 这里原本想用 pn= ，更改数字实现翻页。但是发现百度搜索有针对机读网页的一些身份验证。理论上这样翻页可行，*但实际上还需要进一步解决安全认证问题才能实现。*   
 这里用http代替https也是为了避免第一页就出现这样的问题，但只能用于第一页。
-https://github.com/Matthew-1996/python/blob/master/%E7%88%AC%E8%99%AB/%E7%88%AC%E5%8F%96%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2.ipynb
+https://github.com/Matthew-1996/python/blob/master/%E7%88%AC%E8%99%AB/%E7%88%AC%E5%8F%96%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2.ipynb  
+**可以考虑了解百度搜索网址的参数含义**，自己生成关于检索关键词的参数。来简化网页链接，甚至可能实现跳过身份验证。
