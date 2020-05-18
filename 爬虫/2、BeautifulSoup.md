@@ -190,5 +190,33 @@ for i in range(10):    #循环10次
         print('没有新词条')
         break
 ```
+运行过程：https://github.com/Matthew-1996/python/blob/master/%E7%88%AC%E8%99%AB/%E9%9A%8F%E6%9C%BA%E7%88%AC%E5%8F%96%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91.ipynb  
+
+### 尝试以下爬取百度搜索
+这里再用上一个翻页
+```python
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+import re
+
+#url = 'https://www.baidu.com/s?wd=%E5%87%AF%E8%A5%BF%E6%89%BE%E4%B9%90%E6%8C%87%E5%8D%97&pn=0&oq=%E5%87%AF%E8%A5%BF%E6%89%BE%E4%B9%90%E6%8C%87%E5%8D%97&ie=utf-8&usm=1&fenlei=256&rsv_idx=1&rsv_pq=99d79e870005a5fd&rsv_t=02db0vyQ2uPxvtb%2ByikWm9E07pqieLhuqW7jxqZkWakM%2FFUEfz%2FSPts4p3U'
+#这是百度搜索 凯西找乐指南第一页的url，观察可以发现pn=0，百度搜索每页是个链接，只要改成pn=10，就可以跳转到下一页。利用这个特征，先修改以下url方便换页处理。
+url_first = 'http://www.baidu.com/s?wd=%E5%87%AF%E8%A5%BF%E6%89%BE%E4%B9%90%E6%8C%87%E5%8D%97&'
+url_last = '&oq=%E5%87%AF%E8%A5%BF%E6%89%BE%E4%B9%90%E6%8C%87%E5%8D%97&ie=utf-8&usm=1&fenlei=256&rsv_idx=1&rsv_pq=99d79e870005a5fd&rsv_t=02db0vyQ2uPxvtb%2ByikWm9E07pqieLhuqW7jxqZkWakM%2FFUEfz%2FSPts4p3U'
+url_list = []
+n = 1
+for i in range(1):    #设置了页数，可调整参数
+    url_page = 'pn={}'.format(i * 10)
+    url = url_first + url_page + url_last
+    html = urlopen(url).read().decode('utf-8')
+    soup = BeautifulSoup(html, 'lxml')
+    #要考虑过滤掉百度快照，由于百度视频的url形式与其他不同，下面爬的是除此以外的url
+    for x in soup.find_all('a', {'data-click': re.compile('\{\s*\'F\'+.*'), 'href': re.compile('http:.+')}):
+        link = x['href']
+        print(n, 'url:', link)
+        n += 1  
+```
+这里原本想用 pn= ，更改数字实现翻页。但是发现百度搜索有针对机读网页的一些安全认证。理论上这样翻页可行，*但实际上还需要进一步解决安全认证问题才能实现。*   
+这里用http代替https也是为了避免第一页就出现这样的问题，但只能用于第一页。
 
 
